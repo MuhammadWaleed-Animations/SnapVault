@@ -1,3 +1,5 @@
 {
   "extends": "@react-native/typescript-config"
 }
+// This file is used to configure TypeScript for a React Native project.
+// It extends the base configuration provided by @react-native/typescript-config.

@@ -1,8 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as RNLocalize from 'react-native-localize';
-
+import * as RNLocalize from 'react-native-localize';  
 import en from './translations/en.json';
 import ur from './translations/ur.json';
 import { I18nManager } from 'react-native';
@@ -31,16 +30,38 @@ const resources = {
  * in their device settings, we use the first language in the list of
  * supported languages.
  */
+
+
+// const detectLanguage = async () => {
+//   const savedLang = await AsyncStorage.getItem(LANG_KEY);
+//   if (savedLang) return savedLang;
+//   // If a language is saved in AsyncStorage, use it
+//   const bestLang = RNLocalize.findBestAvailableLanguage(Object.keys(resources));
+//   if (bestLang && resources[bestLang.languageTag]) {
+//     return bestLang.languageTag;
+//   } else {
+//     return 'en';
+//   }
+// };
+
 const detectLanguage = async () => {
   const savedLang = await AsyncStorage.getItem(LANG_KEY);
   if (savedLang) return savedLang;
 
-  const bestLang = RNLocalize.findBestAvailableLanguage(Object.keys(resources));
-  if (bestLang && resources[bestLang.languageTag]) {
-    return bestLang.languageTag;
-  } else {
-    return 'en';
+  const locales = RNLocalize.getLocales();
+  const supported = Object.keys(resources);
+  let bestLang = 'en';
+  for (let locale of locales) {
+    if (supported.includes(locale.languageTag)) {
+      bestLang = locale.languageTag;
+      break;
+    }
+    if (supported.includes(locale.languageCode)) {
+      bestLang = locale.languageCode;
+      break;
+    }
   }
+  return bestLang;
 };
 
 
@@ -60,7 +81,6 @@ const detectLanguage = async () => {
 export const initLocalization = async () => {
   const language = await detectLanguage();
   const isRTL = language === 'ur';
-
   if (I18nManager.isRTL !== isRTL) {
     I18nManager.allowRTL(true);
     I18nManager.forceRTL(isRTL);

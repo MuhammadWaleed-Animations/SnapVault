@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AppNavigator from './src/navigation/AppNavigator';
 import { initLocalization } from './src/localization/i18n';
-import Toast from 'react-native-toast-message';
+import Toast from 'react-native-toast-message'; 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
 

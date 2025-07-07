@@ -101,7 +101,7 @@ const DashboardScreen = ({ navigation }: DashboardScreenProps) => {
           <ImageBackground
             // === PLACE YOUR IMAGE SOURCE HERE ===
             // For a remote image: 
-            source={require('./img/background.png')}
+            source={require('./img/popup-bg.png')}
             // For a local image (assuming it's in an 'assets' folder at the project root, e.g., assets/intro_bg.png):
             // source={require('../../assets/intro_bg.png')}
             // You might need to adjust the path based on your project structure.
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
   // Stats Styles (unchanged)
   statsContainer: {
     flexDirection: 'row',
-    backgroundColor: '#1F2937',
+    backgroundColor: '#1c1c42',
     borderRadius: 20,
     padding: 20,
     marginBottom: 24,
@@ -474,7 +474,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 6,
     paddingHorizontal: 12,
-    backgroundColor: '#374151',
+    backgroundColor: '#1c1c42',
     borderRadius: 12,
   },
   viewAllText: {
