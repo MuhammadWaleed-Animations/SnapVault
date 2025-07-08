@@ -34,13 +34,20 @@ const resources = {
 const detectLanguage = async () => {
   const savedLang = await AsyncStorage.getItem(LANG_KEY);
   if (savedLang) return savedLang;
-
-  const bestLang = RNLocalize.findBestAvailableLanguage(Object.keys(resources));
-  if (bestLang && resources[bestLang.languageTag]) {
-    return bestLang.languageTag;
-  } else {
-    return 'en';
+  const locales = RNLocalize.getLocales();
+  const supported = Object.keys(resources);
+  let bestLang = 'en';
+  for (let locale of locales) {
+    if (supported.includes(locale.languageTag)) {
+      bestLang = locale.languageTag;
+      break;
+    }
+    if (supported.includes(locale.languageCode)) {
+      bestLang = locale.languageCode;
+      break;
+    }
   }
+  return bestLang;
 };
 
 
