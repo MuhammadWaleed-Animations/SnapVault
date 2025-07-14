@@ -162,8 +162,8 @@ const DashboardScreen = ({ navigation }: DashboardScreenProps) => {
         return (
           <DashboardHeader
             navigation={navigation}
-            userName="Alia Farooq"
-            userImage={require('./img/image.png')}
+            userName="Monkey D. Luffy"
+            userImage={require('../../assets/temp-pfp.jpg')}
           />
         );
       
