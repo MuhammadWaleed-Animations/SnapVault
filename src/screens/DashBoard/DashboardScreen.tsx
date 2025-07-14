@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { View, StyleSheet, Dimensions, FlatList, ListRenderItem } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-toast-message';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -17,6 +17,12 @@ type DashboardScreenNavigationProp = NativeStackNavigationProp<RootStackParamLis
 
 interface DashboardScreenProps {
   navigation: DashboardScreenNavigationProp;
+}
+
+interface DashboardSection {
+  id: string;
+  type: 'header' | 'intro' | 'stats' | 'groups' | 'spacer';
+  data?: any;
 }
 
 const DashboardScreen = ({ navigation }: DashboardScreenProps) => {
@@ -100,6 +106,15 @@ const DashboardScreen = ({ navigation }: DashboardScreenProps) => {
     { value: '2.3GB', label: t('Dashboard.storage') },
   ];
 
+  // Create sections for FlatList
+  const dashboardSections: DashboardSection[] = [
+    { id: 'header', type: 'header' },
+    { id: 'intro', type: 'intro' },
+    { id: 'stats', type: 'stats', data: statsData },
+    { id: 'groups', type: 'groups', data: groupsData },
+    { id: 'spacer', type: 'spacer' },
+  ];
+
   // Handlers for popup actions
   const handleCreateGroup = (groupData: { name: string; description: string }) => {
     console.log('Creating group:', groupData);
@@ -135,32 +150,25 @@ const DashboardScreen = ({ navigation }: DashboardScreenProps) => {
   };
 
   const handleViewAllGroups = () => {
-    // Navigate to all groups screen or implement view all logic
-    console.log('View all groups pressed');
+    navigation.navigate('AllGroups', { groups: groupsData });
   };
 
   const screenWidth = Dimensions.get('window').width;
   const contentWrapperWidth = Math.min(screenWidth - 32, 420);
 
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-      >
-        <View style={[styles.contentWrapper, { width: contentWrapperWidth }]}>
-          {/* Status Bar Spacer */}
-          <View style={styles.statusBarSpacer} />
-
-          {/* Header Section */}
+  const renderDashboardSection: ListRenderItem<DashboardSection> = ({ item }) => {
+    switch (item.type) {
+      case 'header':
+        return (
           <DashboardHeader
             navigation={navigation}
             userName="Alia Farooq"
             userImage={require('./img/image.png')}
           />
-
-          {/* SnapVault Introduction Card */}
+        );
+      
+      case 'intro':
+        return (
           <IntroCard
             appTitle="SnapVault"
             version="v2.1"
@@ -171,24 +179,41 @@ const DashboardScreen = ({ navigation }: DashboardScreenProps) => {
             joinButtonText={t('Dashboard.joinGrps')}
             createButtonText={t('Dashboard.createGrps')}
           />
-
-          {/* Stats Section */}
-          <StatsSection stats={statsData} />
-
-          {/* Groups Section */}
+        );
+      
+      case 'stats':
+        return <StatsSection stats={item.data} />;
+      
+      case 'groups':
+        return (
           <GroupsSection
             title={t('Dashboard.myGroups')}
             viewAllText={t('Dashboard.view')}
-            groups={groupsData}
+            groups={item.data}
             backgroundImage={require('./img/background2.png')}
             onViewAll={handleViewAllGroups}
             onGroupPress={handleGroupPress}
           />
+        );
+      
+      case 'spacer':
+        return <View style={styles.bottomSpacer} />;
+      
+      default:
+        return null;
+    }
+  };
 
-          {/* Bottom Spacer */}
-          <View style={styles.bottomSpacer} />
-        </View>
-      </ScrollView>
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={dashboardSections}
+        renderItem={renderDashboardSection}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[styles.flatListContent, { width: contentWrapperWidth }]}
+        style={styles.flatList}
+      />
 
       {/* Popup Components */}
       <CreateGroupPopup
@@ -210,19 +235,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-  },
-  scrollContainer: {
-    flex: 1,
-  },
-  scrollContent: {
     alignItems: 'center',
+  },
+  flatList: {
+    flex: 1,
     paddingHorizontal: 16,
   },
-  contentWrapper: {
-    flex: 1,
-  },
-  statusBarSpacer: {
-    height: 0,
+  flatListContent: {
+    paddingTop: 0,
   },
   bottomSpacer: {
     height: 40,

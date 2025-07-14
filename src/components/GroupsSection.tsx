@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingHorizontal: 10,
     justifyContent: 'space-between',
+    minHeight: 150, // Ensure minimum height for better FlatList performance
   },
 });
 

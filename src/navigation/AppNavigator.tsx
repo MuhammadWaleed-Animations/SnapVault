@@ -17,6 +17,7 @@ import EditProfile from '../screens/UserProfile/EditProfile';
 import ContactUs from '../screens/ContactUs/ContactUs';
 import DashboardScreen from '../screens/DashBoard/DashboardScreen';
 import GroupScreen from '../screens/GroupScreen/GroupScreen';
+import AllGroupsScreen from '../screens/AllGroups/AllGroupsScreen';
 
 
 export type RootStackParamList = {
@@ -35,6 +36,16 @@ export type RootStackParamList = {
     groupName: string;
     groupDescription: string;
     groupCode: string;
+  };
+  AllGroups: {
+    groups: Array<{
+      id: number;
+      name: string;
+      description: string;
+      code: string;
+      memberCount: number;
+      image: any;
+    }>;
   };
 };
 
@@ -126,6 +137,13 @@ const AppNavigator = () => {
             <Stack.Screen
               name="GroupScreen"
               component={GroupScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="AllGroups"
+              component={AllGroupsScreen}
               options={{
                 headerShown: false,
               }}
