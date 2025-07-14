@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { MainTabParamList } from '../../navigation/MainTabNavigator';
 // @ts-ignore
 import Feather from 'react-native-vector-icons/Feather';
 import GroupListItem from '../../components/GroupListItem';
@@ -16,8 +16,8 @@ interface GroupData {
   image: any;
 }
 
-type AllGroupsScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'AllGroups'>;
-type AllGroupsScreenRouteProp = RouteProp<RootStackParamList, 'AllGroups'>;
+type AllGroupsScreenNavigationProp = BottomTabNavigationProp<MainTabParamList, 'AllGroups'>;
+type AllGroupsScreenRouteProp = RouteProp<MainTabParamList, 'AllGroups'>;
 
 interface AllGroupsScreenProps {
   navigation: AllGroupsScreenNavigationProp;

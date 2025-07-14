@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions, FlatList, ListRenderItem } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-toast-message';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { MainTabParamList } from '../../navigation/MainTabNavigator';
 
 // Import new components
 import DashboardHeader from '../../components/DashboardHeader';
@@ -13,7 +13,7 @@ import GroupsSection from '../../components/GroupsSection';
 import CreateGroupPopup from '../../components/CreateGroupPopup';
 import JoinGroupPopup from '../../components/JoinGroupPopup';
 
-type DashboardScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
+type DashboardScreenNavigationProp = BottomTabNavigationProp<MainTabParamList, 'Dashboard'>;
 
 interface DashboardScreenProps {
   navigation: DashboardScreenNavigationProp;

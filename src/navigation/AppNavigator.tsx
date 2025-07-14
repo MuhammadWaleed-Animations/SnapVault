@@ -31,22 +31,6 @@ export type RootStackParamList = {
   'Edit Profile': undefined;
   Logout: undefined;
   'Contact Us': undefined;
-  GroupScreen: {
-    groupId: number;
-    groupName: string;
-    groupDescription: string;
-    groupCode: string;
-  };
-  AllGroups: {
-    groups: Array<{
-      id: number;
-      name: string;
-      description: string;
-      code: string;
-      memberCount: number;
-      image: any;
-    }>;
-  };
 };
 
 export type TabParamList = {
@@ -121,31 +105,6 @@ const AppNavigator = () => {
                 headerStyle: styles.modalHeader,
                 headerTitleStyle: styles.modalHeaderTitle,
                 headerBackTitle: 'Back',
-              }}
-            />
-            {/* <Stack.Screen
-              name="Logout"
-              component={Logout}
-              options={{
-                headerShown: true,
-                title: 'Logout',
-                headerStyle: styles.modalHeader,
-                headerTitleStyle: styles.modalHeaderTitle,
-                headerBackTitle: 'Back',
-              }}
-            /> */}
-            <Stack.Screen
-              name="GroupScreen"
-              component={GroupScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="AllGroups"
-              component={AllGroupsScreen}
-              options={{
-                headerShown: false,
               }}
             />
           </>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/AppNavigator';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { MainTabParamList } from '../navigation/MainTabNavigator';
 
 interface DashboardHeaderProps {
-  navigation: NativeStackNavigationProp<RootStackParamList>;
+  navigation: BottomTabNavigationProp<MainTabParamList>;
   userName: string;
   userImage: any;
 }
@@ -18,7 +18,7 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({
     <View style={styles.header}>
       <View style={styles.profileSection}>
         <TouchableOpacity 
-          onPress={() => navigation.navigate('MainApp', { screen: 'Profile' })} 
+          onPress={() => navigation.navigate('Profile')} 
           style={styles.profilePicContainer}
         >
           <Image
